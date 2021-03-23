@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Bootstrap 101 Template</title>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+		<style>
+			span {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="container-fluid">
+			<h1 class="text-muted">Texto cabecera 1 <span class="small">texto secundario</span></h1>
+		</header>
+		<hr />
+		<!--Primera fila-->
+
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-12">
+					<img id="Portada" src="imagenes/cocina1.jpg" class="img-fluid" />
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-2">
+					<button id="anterior" disabled>ANTERIOR</button>
+				</div>
+				<div class="col-2">
+					<img src="" class="img-fluid galeria" />
+				</div>
+				<div class="col-2">
+					<img src="" class="img-fluid galeria" />
+				</div>
+				<div class="col-2">
+					<img src="" class="img-fluid galeria" />
+				</div>
+				<div class="col-2">
+					<img src="" class="img-fluid galeria" />
+				</div>
+				<div class="col-2">
+					<button id="siguiente">SIGUIENTE</button>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+		<script>
+			var imagenes = ["cocina1", "cocina2", "cocina3", "flower", "forest1", "forest2", "forest3", "forest4", "fresas", "gorila", "hiena", "hipopotamo", "leopardo", "lobo", "marguerite", "summerfield"];
+
+			var x = 0;
+
+			$(controlaEventos);
+
+			function controlaEventos() {
+				primerasImagenes();
+				$("img").on("click", muestraFotoPortada);
+				$("#siguiente").on("click", fotosSiguientes);
+				$("#anterior").on("click", fotosAnteriores);
+			}
+
+			function muestraFotoPortada() {
+				var auxiliar = $(this).attr("src");
+
+				$("#Portada").fadeOut(500, function () {
+					$("#Portada").attr("src", auxiliar);
+				});
+
+				$("#Portada").fadeIn(500);
+			}
+
+			function fotosAnteriores() {
+				x -= 8;
+				fotosSiguientes();
+				// comprobarBotones;
+			}
+
+			function fotosSiguientes() {
+				if (x <= 12) {
+					for (y = 3; y<5 ; y++) {
+						$($(".galeria")[y]).attr("src", "imagenes/" + imagenes[x] + ".jpg");
+						x++;
+					}
+				}
+				comprobarEstadoBotones();
+			}
+
+			function comprobarEstadoBotones() {
+				//me ocupo del boton siguiente
+				if (x > 12) {
+					$("#siguiente").attr("disabled", true);
+				} else {
+					$("#siguiente").attr("disabled", false);
+				}
+
+				//me ocupo del boton anterior
+				if (x >= 8) {
+					$("#anterior").attr("disabled", false);
+				} else {
+					$("#anterior").attr("disabled", true);
+				}
+			}
+
+			function primerasImagenes() {
+				for (x = 0; x < 4; x++) {
+					$($(".galeria")[x]).attr("src", "imagenes/" + imagenes[x] + ".jpg");
+				}
+
+				//Seleccionamos las imagenes que tienen la clase galeria y creamos el bucle each
+				/* $(".galeria").each(function(indice,elemento){
+                //En cada elemento (imagen) escribimos la src leida del array imagenes
+                $(elemento).attr("src","imagenes/" + imagenes[indice] + ".jpg");
+              });   */
+
+				//Seleccionamos los elementos p y creamos el bucle each
+				/*  $("p").each(function(indice,elemento){
+                //En cada elemento p escribimos el texto
+                $(elemento).text("Párrafo número: " + indice);
+              });   */
+			}
+		</script>
+	</body>
+</html>
